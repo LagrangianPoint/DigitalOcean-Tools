@@ -8,3 +8,11 @@ else
   debian=0
 fi
 
+if [ $debian -eq 1 ]
+then
+
+sudo apt-get update
+sudo apt-get install git
+sudo apt-get install python
+
+fi
