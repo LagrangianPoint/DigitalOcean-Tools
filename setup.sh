@@ -19,6 +19,15 @@ then
 	sudo apt-get update
 	sudo apt-get install git
 	sudo apt-get install python
+
+	# Installing LAMP stack
+	sudo apt-get install php5 libapache2-mod-php5
+	sudo apt-get install mysql-server
+	sudo apt-get install apache2
+	sudo a2enmod rewrite
+	sudo /etc/init.d/apache2 restart
+
+
 else
 	# Installing Git and Python for using do.py
 	sudo yum install git
