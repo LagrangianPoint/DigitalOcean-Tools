@@ -1,0 +1,4 @@
+config_backups/*
+database_dumps/*
+dolib.pyc
+
