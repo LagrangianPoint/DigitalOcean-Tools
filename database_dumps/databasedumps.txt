@@ -1,0 +1,1 @@
+Place your database dumps in this directory. Any files in this folder will be ignored by GIT.
