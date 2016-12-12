@@ -4,6 +4,9 @@ import os
 import shutil
 import time
 import datetime
+import MySQLdb
+
+
 
 # Determines if the operating system is debian
 def isDebian():
@@ -14,6 +17,7 @@ def generateVirtualHost(strDomain):
 	strTemplate = """
 <VirtualHost *:80>
 	ServerName %domain%
+	ServerAlias www.%domain%
 	DocumentRoot /var/www/%domain%
 
 	ErrorLog ${APACHE_LOG_DIR}/error.log
@@ -49,7 +53,8 @@ def replaceFile(strOldFile, strNewFile):
 
 # Restarts MySQL
 def restart_mysql():
-	os.system("sudo /etc/init.d/mysql restart")
+	#os.system("sudo /etc/init.d/mysql restart")
+	os.system("sudo /usr/sbin/service mysql restart")
 
 # Restarts Apache
 def restart_apache():
@@ -76,6 +81,16 @@ def add_domain(strDomain):
 		os.symlink(strFile, strFileSymlink)
 		restart_apache()
 
+# Allows all folders inside a folder to have 777 permissions to enable file uploading
+def enable_folder_writing(strPath):
+	os.chmod(strPath, 0o777)
+	for dirpath, dirnames, filenames in os.walk(strPath):
+		for strDir in dirnames:  
+			path = os.path.join(dirpath, strDir)
+			os.chmod(path, 0o777) # for example
+
+
+
 # Automatically configs MySQL in one of three modes
 # low :  Low resource VM
 # mid : mid resource VM  - TODO
@@ -89,6 +104,39 @@ def config_mysql(mode):
 	else:
 		return False
 
-# /etc/mysql/mysql.conf.d/mysqld.cnf
+class DBMysql(object):
+	# Initializes database with root information
+	def __init__(self, host, username, password):
+		self.host = host
+		self.root_username = username
+		self.root_password = password
+		#self.cnx = mysql.connector.connect(host=host, user=username, password=password)
+		self.db = MySQLdb.connect(host, username, password)
+		self.cursor = self.db.cursor()
+
+	# Selects database
+	def selectDb(self, strDBName):
+		self.db.select_db(strDBName)
+	
+	# Creates a new database 
+	def create_db(self, strDBName):
+		self.cursor.execute("CREATE DATABASE IF NOT EXISTS %s" % (strDBName))
+		self.db.commit()
+
+	# Adds a new user to a specified database
+	def add_user(self, database, username, password, host='localhost'):
+		self.cursor.execute("CREATE USER '%s'@'%s' IDENTIFIED BY '%s'" % (username, host,password))
+		self.cursor.execute("GRANT ALL PRIVILEGES ON %s . * TO '%s'@'%s'" % (database, username, host))
+		self.cursor.execute("FLUSH PRIVILEGES")
+		self.db.commit()
+
+
+	# Loads a database within database_dumps folder using mysql client.
+	def load_db(self, database, dumpfile):
+		strCommand = "mysql -h%s -u%s -p'%s' %s < database_dumps/%s" % (self.host, self.root_username, self.root_password, database, dumpfile)
+		os.system(strCommand)
+
+
+
 
 
