@@ -20,13 +20,18 @@ then
 	sudo apt-get install git
 	sudo apt-get install python
 	sudo apt-get install python-mysqldb
+	sudo apt-get install unzip
 
 	# Installing LAMP stack
 	sudo apt-get install php libapache2-mod-php
 	sudo apt-get install mysql-server
+	sudo apt-get install php-mysqli
+	sudo apt-get install php-xml
 	sudo apt-get install apache2
 	sudo a2enmod rewrite
 	sudo /etc/init.d/apache2 restart
+
+	sudo mysql_secure_installation
 
 
 else
