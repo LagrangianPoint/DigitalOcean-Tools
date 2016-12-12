@@ -89,7 +89,24 @@ def enable_folder_writing(strPath):
 			path = os.path.join(dirpath, strDir)
 			os.chmod(path, 0o777) # for example
 
-
+# Updates and removes old Wordpress versions  
+def upgrade_wp_plugins(strPath):
+	strOriginalDir = os.getcwd()
+	os.chdir(strPath)
+	for dirpath, dirnames, filenames in os.walk(strPath):
+		for strDir in dirnames:
+			strGetPluginFile = "https://downloads.wordpress.org/plugin/%s.zip" % (strDir)
+			listParts = strGetPluginFile.split("/")
+			strFileName = listParts.pop()
+			os.system("wget " + strGetPluginFile)
+			if os.path.isfile(strFileName):
+				shutil.rmtree(strDir)
+				os.system(  "unzip " + strFileName  )
+				os.remove(strFileName)
+			else:
+				print " * Unable to update: " + strDir + " .... File " + strFileName +  " does not exists" 
+		break
+	os.chdir(strOriginalDir)
 
 # Automatically configs MySQL in one of three modes
 # low :  Low resource VM
