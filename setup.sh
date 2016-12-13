@@ -27,6 +27,7 @@ then
 	sudo apt-get install mysql-server
 	sudo apt-get install php-mysqli
 	sudo apt-get install php-xml
+	sudo apt-get install php-gd
 	sudo apt-get install apache2
 	sudo a2enmod rewrite
 	sudo /etc/init.d/apache2 restart
