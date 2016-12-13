@@ -21,7 +21,8 @@ chmod +x setup.sh
 
 ## Ideas:
 - Create code for finding all wordpress installations in a given path, and finding out the wordpress version for each directory
-- Create a tool for finding out what the latest Wordpress version is
-- Create a tool that tells you which Wordpress installation needs upgrade 
+- Create code for finding out what the latest Wordpress version is
+- Create code that tells you which Wordpress installation needs upgrade 
+- Create code for automatically upgrading wordpress
 
 
