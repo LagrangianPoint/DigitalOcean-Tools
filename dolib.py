@@ -83,6 +83,8 @@ def add_domain(strDomain):
 
 # Allows all folders inside a folder to have 777 permissions to enable file uploading
 def enable_folder_writing(strPath):
+	if not  os.path.exists(strPath):
+		os.makedirs(strPath)
 	os.chmod(strPath, 0o777)
 	for dirpath, dirnames, filenames in os.walk(strPath):
 		for strDir in dirnames:  
