@@ -24,5 +24,5 @@ chmod +x setup.sh
 - Create code for finding out what the latest Wordpress version is
 - Create code that tells you which Wordpress installation needs upgrade 
 - Create code for automatically upgrading wordpress
-
+- BAN IPs automatically via IP tables.
 
