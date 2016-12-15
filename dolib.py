@@ -123,6 +123,12 @@ def config_mysql(mode):
 	else:
 		return False
 
+# Allows you to ban IP with IP tables
+def banip(strIp):
+	strCommand = "iptables -A INPUT -s %s -j DROP" % (strIp)
+	os.system(strCommand)
+
+
 class DBMysql(object):
 	# Initializes database with root information
 	def __init__(self, host, username, password):
