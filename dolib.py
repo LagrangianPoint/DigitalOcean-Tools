@@ -128,6 +128,11 @@ def banip(strIp):
 	strCommand = "iptables -A INPUT -s %s -j DROP" % (strIp)
 	os.system(strCommand)
 
+# Find PHP files in WP's uploads folder for a given domain
+def findPHPuploads(strDomain):
+	strCommand = 'find /var/www/%s/wp-content/uploads/ -name "*.php"' % (strDomain)
+	os.system(strCommand)
+
 
 class DBMysql(object):
 	# Initializes database with root information
