@@ -29,6 +29,14 @@ def generateVirtualHost(strDomain):
 		Order allow,deny
 		Allow from all
 	</Directory>
+
+	Directory /var/www/%domain%/wp-content/uploads>
+		<FilesMatch "(?i)\.(php|php\d?|phtml)$">
+			Order Deny,Allow
+			Deny from All
+		</FilesMatch>
+	</Directory>
+
 </VirtualHost>
 	"""
 	strOut = strTemplate.replace("%domain%", strDomain)
