@@ -136,6 +136,11 @@ def banip(strIp):
 	strCommand = "iptables -A INPUT -s %s -j DROP" % (strIp)
 	os.system(strCommand)
 
+# Bans a list of IPs at once
+def banips(listIps):
+	for strIp in listIps:
+		banip(strIp)
+
 # Find PHP files in WP's uploads folder for a given domain
 def findPHPuploads(strDomain):
 	strCommand = 'find /var/www/%s/wp-content/uploads/ -name "*.php"' % (strDomain)
