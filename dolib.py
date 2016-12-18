@@ -138,8 +138,26 @@ def banip(strIp):
 
 # Bans a list of IPs at once
 def banips(listIps):
+	listWhitelist = getIpWhitelist()
 	for strIp in listIps:
-		banip(strIp)
+		if not strIp in listWhitelist:
+			banip(strIp)
+
+# Gets list of whitelisted IPs
+def getIpWhitelist():
+	strFile = "ip-whitelist.txt"
+	if not os.path.exists(strFile):
+		return []
+	else: 
+		fh = open(strFile, "r")
+		strRaw = fh.read()
+		fh.close()
+		listOut = []
+		for ip in strRaw.split("\n"):
+			ip = ip.strip()
+			if not ip == "":
+				listOut.append(ip)
+	return listOut
 
 # Find PHP files in WP's uploads folder for a given domain
 def findPHPuploads(strDomain):
