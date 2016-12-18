@@ -99,7 +99,7 @@ def enable_folder_writing(strPath):
 			path = os.path.join(dirpath, strDir)
 			os.chmod(path, 0o777) # for example
 
-# Updates and removes old Wordpress versions  
+# Updates and removes old Wordpress plugin versions  
 def upgrade_wp_plugins(strPath):
 	strOriginalDir = os.getcwd()
 	os.chdir(strPath)
