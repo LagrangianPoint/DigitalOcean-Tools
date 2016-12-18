@@ -1,1 +1,0 @@
-Everytime you use do.py to change the settings for a given file, a copy of it will be stored in this folder. No files on this folder will be watched by git.
