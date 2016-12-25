@@ -30,7 +30,7 @@ def generateVirtualHost(strDomain):
 		Allow from all
 	</Directory>
 
-	Directory /var/www/%domain%/wp-content/uploads>
+	<Directory /var/www/%domain%/wp-content/uploads>
 		<FilesMatch "(?i)\.(php|php\d?|phtml)$">
 			Order Deny,Allow
 			Deny from All
